@@ -17,7 +17,8 @@ from mage.rtl_generator import RTLGenerator
 
 # Configuration and Constants
 # model = "gpt-4-0314"
-model = "gpt-4"
+# model = "gpt-4"
+model = "qwen2.5-coder:0.5b",
 # model = "gpt-3.5-turbo-0301"
 temperature = 0.7
 n = 1
@@ -334,10 +335,37 @@ args_dict = {
     "filter_instance": "^(Prob070_ece241_2013_q2|Prob151_review2015_fsm)$",
 }
 
+args_dict = {
+    "provider": "ollama",
+    "model": "qwen2.5-coder:0.5b",
+    # "model": "claude-3-7-sonnet@20250219",
+    # "model": "gemini-2.0-flash-001",
+    # "model": "claude-3-7-sonnet-20250219",
+    # "model": "gpt-4o-2024-08-06",
+    # "filter_instance": "^(Prob070_ece241_2013_q2|Prob151_review2015_fsm)$",
+    "filter_instance": "^(Prob011_norgate)$",
+    # "filter_instance": "^(.*)$",
+    "type_benchmark": "verilog_eval_v2",
+    "path_benchmark": "./verilog-eval",
+    "run_identifier": "your_run_identifier",
+    "n": 1,
+    "temperature": 0.85,
+    "top_p": 0.95,
+    "max_token": 8192,
+    "use_golden_tb_in_mage": True,
+    "key_cfg_path": "./key.cfg",
+    "request_timeout": 60.0,
+}
 
 args = argparse.Namespace(**args_dict)
 cfg = Config("./key.cfg")
-llm = get_llm(model=args.model, api_key=cfg["OPENAI_API_KEY"], max_tokens=4096)
+# llm = get_llm(model=args.model, api_key=cfg["OPENAI_API_KEY"], max_tokens=4096)
+llm = get_llm(
+    model=args.model,
+    cfg_path=args.key_cfg_path,
+    max_token=args.max_token,
+    provider=args.provider,
+)
 rtl_gen = RTLGenerator(llm)
 spec_dict = get_benchmark_contents(
     TypeBenchmark.VERILOG_EVAL_V2,
@@ -345,6 +373,7 @@ spec_dict = get_benchmark_contents(
     "../verilog-eval",
     args.filter_instance,
 )
+print(spec_dict)
 
 test_dict = get_benchmark_contents(
     TypeBenchmark.VERILOG_EVAL_V2,
@@ -352,6 +381,7 @@ test_dict = get_benchmark_contents(
     "../verilog-eval",
     args.filter_instance,
 )
+print(test_dict)
 
 for key, spec in spec_dict.items():
     rtl_gen.reset()
