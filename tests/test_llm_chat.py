@@ -14,7 +14,15 @@ args_dict = {
     "max_token": 8192,
     "key_cfg_path": "./key.cfg",
 }
-
+args_dict = {
+    "provider": "ollama",
+    "model": "qwen2.5-coder:0.5b",
+    "n": 1,
+    "temperature": 0.85,
+    "top_p": 0.95,
+    "max_token": 8192,
+    "key_cfg_path": "./key.cfg",
+}
 
 def main():
     args = argparse.Namespace(**args_dict)

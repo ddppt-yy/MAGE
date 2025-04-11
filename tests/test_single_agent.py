@@ -77,7 +77,7 @@ results_df = pd.DataFrame(columns=results_columns)
 conversation_history = []
 
 
-@backoff.on_exception(backoff.expo, openai.error.OpenAIError, max_tries=2)
+# @backoff.on_exception(backoff.expo, openai.error.OpenAIError, max_tries=2)
 def completions_with_backoff(**kwargs):
     return openai.ChatCompletion.create(**kwargs)
 

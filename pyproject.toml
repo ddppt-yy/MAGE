@@ -17,6 +17,8 @@ dependencies = [
   "llama-index-llms-openai",
   "llama-index-llms-vertex",
   "llama-index-llms-ollama",
+  "backoff",
+  "pandas",
   "pre-commit",
   "pydantic",
   "rich",
