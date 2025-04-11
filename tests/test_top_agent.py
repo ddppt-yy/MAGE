@@ -20,9 +20,33 @@ from mage.token_counter import TokenCount
 logger = get_logger(__name__)
 
 
+# args_dict = {
+#     "provider": "vertexanthropic",
+#     "model": "claude-3-7-sonnet@20250219",
+#     # "model": "gemini-2.0-flash-001",
+#     # "model": "claude-3-7-sonnet-20250219",
+#     # "model": "gpt-4o-2024-08-06",
+#     # "filter_instance": "^(Prob070_ece241_2013_q2|Prob151_review2015_fsm)$",
+#     "filter_instance": "^(Prob011_norgate)$",
+#     # "filter_instance": "^(.*)$",
+#     "type_benchmark": "verilog_eval_v2",
+#     "path_benchmark": "./verilog-eval",
+#     "run_identifier": "your_run_identifier",
+#     "n": 1,
+#     "temperature": 0.85,
+#     "top_p": 0.95,
+#     "max_token": 8192,
+#     "use_golden_tb_in_mage": True,
+#     "key_cfg_path": "./key.cfg",
+# }
+
+
+
+
 args_dict = {
-    "provider": "vertexanthropic",
-    "model": "claude-3-7-sonnet@20250219",
+    "provider": "ollama",
+    "model": "qwen2.5-coder:0.5b",
+    # "model": "claude-3-7-sonnet@20250219",
     # "model": "gemini-2.0-flash-001",
     # "model": "claude-3-7-sonnet-20250219",
     # "model": "gpt-4o-2024-08-06",
@@ -38,6 +62,7 @@ args_dict = {
     "max_token": 8192,
     "use_golden_tb_in_mage": True,
     "key_cfg_path": "./key.cfg",
+    "request_timeout": 60.0,
 }
 
 

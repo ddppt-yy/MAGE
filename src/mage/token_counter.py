@@ -9,6 +9,7 @@ from llama_index.core.llms.llm import LLM
 from llama_index.llms.anthropic import Anthropic
 from llama_index.llms.openai import OpenAI
 from llama_index.llms.vertex import Vertex
+from llama_index.llms.ollama import Ollama
 from pydantic import BaseModel
 from vertexai.preview.generative_models import GenerativeModel
 
@@ -142,6 +143,8 @@ class TokenCounter:
 
             self.encoding = VertexEncoding(llm._client)
             self.activate_structure_output = True
+        elif isinstance(llm, Ollama):
+            pass
         else:
             raise Exception(f"gen_config: No tokenizer for model {model}")
         logger.info(f"Found tokenizer for model '{model}'")

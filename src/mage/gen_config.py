@@ -8,6 +8,10 @@ from llama_index.llms.openai import OpenAI
 from llama_index.llms.vertex import Vertex
 from pydantic import BaseModel
 
+from llama_index.llms.ollama import Ollama
+
+
+
 from .log_utils import get_logger
 from .utils import VertexAnthropicWithCredentials
 
@@ -103,6 +107,12 @@ def get_llm(**kwargs) -> LLM:
 
         except Exception as e:
             raise Exception(f"gen_config: Failed to get {provider} LLM") from e
+    elif kwargs["provider"] == "ollama":
+        llm: LLM = Ollama(
+            model=kwargs["model"],
+            request_timeout=60.0,
+        )
+        print( llm.complete("who are you?"))
     else:
         raise ValueError(f"gen_config: Invalid provider: {provider}")
 
